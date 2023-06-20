@@ -1,21 +1,28 @@
+﻿
+
 <html><head>
 <title>Adding to database</title></head>
 <body bgcolor=#eeeeee><font face=arial>
+
+
 <?php
 if (!@($name)): $f=1;endif;
 if (!@($speed)): $f=1;endif;
 if (!@($color)): $f=1;endif;
 if (!@($price)): $f=1;endif;
 if(($submit) & (!@($f))){
-$db=mysql_connect("localhost");
-mysql_select_db("Cars",$db);
-echo "$count\n";
-$sql="INSERT INTO cars (id,name,speed,color,price) VALUES
-('$ID','$name','$speed','$color','$price')";
-$result=mysql_query($sql);
+// Подключение к базе данных
+$mysqli =  mysqli_connect("localhost", "root", "", "Php") or die(mysql_error());
+
+// Проверка соединения
+if ($mysqli_connect->connect_errno) {
+    echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+}
+
 echo "<font size=4 face=arial color=#330066>\n";
 while (list($name,$value)=each($HTTP_POST_VARS)){
 echo "$name = $value<br><br>\n";
+
 }
 echo "<font size=5 face=arial color=red>";
 echo "<center>Thank you! Information has been added to database.</font>\n";
@@ -26,10 +33,9 @@ echo "</form>\n";
 }
 else{
 $count=1;
-$db=mysql_connect("localhost");
-mysql_select_db("Cars",$db);
-$temp=mysql_query("SELECT * FROM cars");
-while($myrow=mysql_fetch_array($temp)){
+$mysqli =  mysqli_connect("localhost", "root", "", "Php") or die(mysql_error());
+$temp=$mysqli->prepare("SELECT * FROM cars");
+while($myrow=$mysqli->query($temp)){
 $count=$count+1;//test how many records have been in database.
 }
 echo "<Br><Br>\n";
@@ -49,7 +55,7 @@ echo "</td></tr></table>\n";?>
 <a href="main1.php" target="m1"> Back to Main </a>
 </H3>
 <?
+
+
 }
 ?>
-</body>
-</html>

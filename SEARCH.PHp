@@ -3,7 +3,7 @@
 <font face=arial color=#330066 size=4>
 <center>
 <H3 align=center>
-<a href="MAIN1.php" target="m1"> Back to Main </a>
+<a href="main1.php" target="m1"> Back to Main </a>
 </H3>
 <form method=post action="<?php echo $PHP_SELF ?>">
 <font size=3 face=arial color=#330066><b>Search by: &nbsp </b></font>
@@ -20,14 +20,16 @@
 </form><br><hr color=red height=8>
 <?php
 if($keyword){
-$db=mysql_connect("localhost");
-mysql_select_db("Cars",$db);
+$mysqli =  mysqli_connect("localhost", "root", "", "Php") or die(mysql_error());;
+
+// Проверка соединения
+if ($mysqli_connect->connect_errno) {
+    echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+}
 if($value==id){
 $sql="SELECT * FROM cars WHERE id='$keyword'";
 }
 else if($value==name){
-
-51
 
 $sql="SELECT * FROM cars WHERE name='$keyword'";
 }
@@ -57,8 +59,6 @@ printf("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>\n"
 else{
 echo "<center><font color=red face=arial size=4>\n";
 printf("Sorry, No records were found in our database!\n");
-
-52
 
 }
 }

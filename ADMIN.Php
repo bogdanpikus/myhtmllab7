@@ -2,10 +2,14 @@
 <title></title></head>
 <body bgcolor=#eeeeee link=#330066 vlink=#330066>
 <?php
-$db=mysql_connect("localhost");
-mysql_select_db("Cars",$db);
+// Подключение к базе данных
+$mysqli =  mysqli_connect("localhost", "root", "", "Php") or die(mysql_error());
 
-47
+// Проверка соединения
+if ($mysqli_connect->connect_errno) {
+    echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+}
+
 
 if($modify)
 {
@@ -36,8 +40,6 @@ echo "$name = $value<br><br>\n";
 echo "<font size=5 face=arial color=red>";
 echo "<center>Information has been deleted.</font>\n";
 
-48
-
 echo "<br><br>\n";
 echo "<form method=\"post\" action=\"$PHP_SELF\">\n";
 echo "<input type=\"submit\" value=\"Go Back To Main\">\n";
@@ -67,19 +69,23 @@ name="price"><Br><br>
 </td></tr></table>
 <H3 align=center>
 
-49
-
 <a href="main1.php" target="m1"> Back to Main </a>
 </H3>
 <?php
 }
 else{
-echo"<center><h3> Для чи видалення зміни значення виберіть потрібний
-запис</center><br><hr size=2>";
+echo"<center><h3> To delete or change a value, select the desired one
+record</center><br><hr size=2>";
 echo "<font face=arial>\n";
-$db=mysql_connect("localhost");
-mysql_select_db("Cars",$db);
-$result=mysql_query("SELECT * FROM cars",$db);
+// Подключение к базе данных
+$mysqli =  mysqli_connect("localhost", "root", "", "Php") or die(mysql_error());
+
+// Проверка соединения
+if ($mysqli_connect->connect_errno) {
+    echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+}
+;
+$result=$mysqli->query("SELECT * FROM cars",$db);
 echo "<table border=0 bordercolorlight=white bordercolordark=black
 align=center>\n";
 echo "<tr align=center bgcolor=blue><td><font color=white>ID</td><td><font
@@ -88,10 +94,9 @@ color=white>Color</td><td><font color=white>Price</td></tr>\n";
 do{
 printf("<tr align=center bgcolor=lightblue><td><a
 href=\"%s?id=%s\">%s</td><td><a
-href=\"%s?id=%s\">%s</td><td>%s</td><td>%s</td><td>%s</td></tr></a>\n",$P
-HP_SELF,$myrow["id"],$myrow["id"],$PHP_SELF,$myrow["id"],$myrow["name"]
-,$myrow["speed"],$myrow["color"],$myrow["price"]);
-}while($myrow=mysql_fetch_array($result));
+href=\"%s?id=%s\">%s</td><td>%s</td><td>%s</td><td>%s</td></tr></a>\n",$PHP_SELF,
+$HP_SELF,$myrow["id"],$myrow["id"],$PHP_SELF,$myrow["id"],$myrow["name"],$myrow["speed"],$myrow["color"],$myrow["price"]);
+}while($myrow=mysqli_fetch_array($result));
 }
 ?>
 </body></html>

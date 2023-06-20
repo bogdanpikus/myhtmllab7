@@ -6,4 +6,5 @@ $background = ImageColorAllocate ($im, $r, $g, $b); //створюємо колір
 ImageJpeg ($im); //виводимо image
 
 ImageDestroy ($im); //звільнимо пам'ять, виділену під image
-?>
+
+
